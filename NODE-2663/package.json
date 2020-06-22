@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mlaunch stop && rm -rf ./data && mlaunch init --replicaset && node ./index.js",
+    "start": "mlaunch stop && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000 && node ./index.js",
     "cleanup": "standard --fix ./index.js"
   },
   "keywords": [],

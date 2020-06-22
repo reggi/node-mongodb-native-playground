@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
-const url = 'mongodb://localhost:27017'
+const url = 'mongodb://localhost:31000?replicaSet=rs'
 const dbName = 'project'
 const collectionName = 'node-2663'
 const client = new MongoClient(url, { useUnifiedTopology: true })
@@ -20,17 +20,17 @@ const data = [
 ]
 
 function aggregate (collection, hashId, callback) {
-  console.log(`----- starting aggregate with $match on hashId with value of ${hashId} -----`)
+  console.log(`----- aggregate starting with $match on hashId with value of ${hashId} -----`)
   collection.aggregate(
     [
-      { $match: { hashId: hashId } },
+      { $match: { hashId } },
       { $addFields: { newField: 'this is an added field!' } }
     ],
     function (err, cursor) {
       assert.strictEqual(err, null)
       cursor.toArray(function (err, documents) {
         assert.strictEqual(err, null)
-        console.log(`----- documents changed by aggregate ${documents.length} -----`)
+        console.log(`----- aggregate finished changed ${documents.length} document(s) -----`)
         callback(err, documents)
       })
     }
@@ -41,7 +41,17 @@ function seed (collection, callback) {
   console.log('----- seeding... -----')
   collection.insertMany(data, function (err, res) {
     assert.strictEqual(null, err)
-    console.log(`----- seed finished inserted ${res.insertedCount} documents -----`)
+    console.log(`----- seed finished, inserted ${res.insertedCount} documents -----`)
+    callback(err, res)
+  })
+}
+
+function change (collection, hashId, callback) {
+  console.log(`----- findOneAndUpdate started, updating hashId with value of ${hashId} ----`)
+  const update = { $set: { modified: 'this is an added field without aggregate'} }
+  collection.findOneAndUpdate({ hashId }, update, function (err, res) {
+    assert.strictEqual(null, err)
+    console.log(`----- findOneAndUpdate finished, updated hashId with value of ${hashId} ----`)
     callback(err, res)
   })
 }
@@ -53,12 +63,15 @@ client.connect(function (err, client) {
   const changeFired = []
 
   const close = () => {
-    console.log(`----- changeStream "change" fired ${changeFired.length} times -----`)
-    changeStream.close()
-    client.close()
+    setTimeout(() => {
+      console.log(`----- changeStream "change" fired ${changeFired.length} times -----`)
+      changeStream.close()
+      client.close()
+    }, 1000)
   }
   const db = client.db(dbName)
   const collection = db.collection(collectionName)
+
   const changeStream = collection.watch()
 
   changeStream.on('change', (next) => {
@@ -67,11 +80,17 @@ client.connect(function (err, client) {
     console.log(next)
   })
 
-  seed(collection, (err) => {
-    assert.strictEqual(null, err)
-    aggregate(collection, data[0].hashId, (err) => {
+  setTimeout(() => {
+    seed(collection, (err) => {
       assert.strictEqual(null, err)
-      close()
+      change(collection, data[0].hashId, (err) => {
+        assert.strictEqual(null, err)
+        aggregate(collection, data[1].hashId, (err) => {
+          assert.strictEqual(null, err)
+          close()
+        })
+      })
     })
-  })
+  }, 1000)
+
 })
