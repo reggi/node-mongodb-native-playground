@@ -65,8 +65,7 @@ client.connect(function (err, client) {
   const close = () => {
     setTimeout(() => {
       console.log(`----- changeStream "change" fired ${changeFired.length} times -----`)
-      changeStream.close()
-      client.close()
+      changeStream.close(() => client.close())
     }, 1000)
   }
   const db = client.db(dbName)
