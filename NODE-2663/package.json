@@ -1,0 +1,15 @@
+{
+  "name": "node-2663",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mlaunch stop && rm -rf ./data && mlaunch init --replicaset && node ./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.5.9"
+  }
+}
