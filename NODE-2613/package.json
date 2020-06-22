@@ -1,0 +1,16 @@
+{
+  "name": "NODE-2613",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bson": "github:mongodb/js-bson#NODE-2613/int32-parse-in-constructor",
+    "ejson": "^2.2.0"
+  }
+}
