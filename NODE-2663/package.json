@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mlaunch stop && rm -rf ./data && mlaunch init --replicaset && node ./index.js"
+    "start": "mlaunch stop && rm -rf ./data && mlaunch init --replicaset && node ./index.js",
+    "cleanup": "standard --fix ./index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.5.9"
+    "mongodb": "^3.5.9",
+    "standard": "^14.3.4"
   }
 }
