@@ -11,7 +11,7 @@ const { MongoClient } = require('mongodb');
     console.log(next)
     await changeStream.close()
     await client.close()
-  });
+  })
   setTimeout(() => {
     collection.insertOne({ a: 42 })
   }, 2000)

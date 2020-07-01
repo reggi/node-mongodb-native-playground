@@ -1,0 +1,17 @@
+{
+  "name": "node2670",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "exec": "mlaunch stop || true && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000",
+    "start": "npm run exec && mocha --timeout 20000 ./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^8.0.1",
+    "mongodb": "file:../../../mongodb/node-mongodb-native/"
+  }
+}

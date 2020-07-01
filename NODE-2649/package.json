@@ -1,0 +1,16 @@
+{
+  "name": "node2649",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "exec": "mlaunch stop || true && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000",
+    "start": "npm run exec && node ./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "file:../../../mongodb/node-mongodb-native"
+  }
+}
