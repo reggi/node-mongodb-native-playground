@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "foreman": "^3.0.1",
-    "mongodb": "file:../../../mongodb/node-mongodb-native"
+    "mongodb": "^3.5.9"
   }
 }
