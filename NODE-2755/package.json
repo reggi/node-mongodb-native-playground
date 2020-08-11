@@ -1,0 +1,16 @@
+{
+  "name": "NODE-2755",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mlaunch stop || true && rm -rf ./data && mlaunch init --single --port 31000 && node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.6.0"
+  }
+}
