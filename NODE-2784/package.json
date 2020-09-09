@@ -1,0 +1,16 @@
+{
+  "name": "@reggi/node-2784",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Testing out jira ticket NODE-2784",
+  "main": "index.js",
+  "scripts": {
+    "server": "export MONGODB_URI=mongodb://localhost:31000 && mlaunch stop || true && rm -rf ./data && mlaunch init --single --port 31000 && node ./index.js",
+    "replica-set": "export MONGODB_URI=mongodb://localhost:31000?replicaSet=rs && mlaunch stop || true && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000 && node ./index.js",
+    "start": "npm run server"
+  },
+  "author": "Thomas Reggi",
+  "dependencies": {
+    "mongodb": "3.6.0"
+  }
+}
