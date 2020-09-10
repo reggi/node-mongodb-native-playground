@@ -11,7 +11,8 @@ sh: cd ./<%= jira %> && npm install
   "scripts": {
     "server": "export MONGODB_URI=mongodb://localhost:31000 && mlaunch stop || true && rm -rf ./data && mlaunch init --single --port 31000 && node ./index.js",
     "replica-set": "export MONGODB_URI=mongodb://localhost:31000?replicaSet=rs && mlaunch stop || true && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000 && node ./index.js",
-    "start": "npm run <%= locals['topology'] || 'server' %>"
+    "start": "npm run <%= locals['topology'] || 'server' %>",
+    "ticket": "open https://jira.mongodb.org/browse/<%= jira %>"
   },
   "author": "Thomas Reggi",
   "dependencies": {

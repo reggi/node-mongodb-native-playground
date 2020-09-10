@@ -2,17 +2,21 @@ const { MongoClient } = require('mongodb');
 const assert = require('assert');
 const MONGODB_URI = process.env.MONGODB_URI;
 
-console.log(MONGODB_URI);
-
 (async function () {
+  const reporterOptions = {
+    readPreference: 'primaryPreferred'
+  }
+
   const client = new MongoClient(MONGODB_URI, {
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    ...reporterOptions
   })
   await client.connect()
   const db = client.db('example')
   const collection = db.collection('inventory')
 
-  await collection.createIndex({ quote : "text" });
+  const createdIndex = await collection.createIndex({ quote : "text" });
+  assert.equal(createdIndex, 'quote_text');
 
   const documents = [
     { idioma: "portuguese", quote: "A sorte protege os audazes" },

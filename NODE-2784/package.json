@@ -7,7 +7,8 @@
   "scripts": {
     "server": "export MONGODB_URI=mongodb://localhost:31000 && mlaunch stop || true && rm -rf ./data && mlaunch init --single --port 31000 && node ./index.js",
     "replica-set": "export MONGODB_URI=mongodb://localhost:31000?replicaSet=rs && mlaunch stop || true && rm -rf ./data && mlaunch init --replicaset --name rs --port 31000 && node ./index.js",
-    "start": "npm run server"
+    "start": "npm run server",
+    "ticket": "open https://jira.mongodb.org/browse/NODE-2784"
   },
   "author": "Thomas Reggi",
   "dependencies": {
